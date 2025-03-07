@@ -53,80 +53,108 @@ export const OptionsPanel: React.FC<Props> = ({
 }) => {
   return (
     <>
-      {/* 上部の設定オプション（1段目） */}
-      <div className="flex flex-wrap items-end gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {/* Detection Resolution */}
-        <div className="flex items-center gap-1" title="Detection resolution">
-          <Icon icon="carbon:fit-to-screen" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="detectionResolution"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Detection Resolution
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:fit-to-screen"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
+              id="detectionResolution"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={detectionResolution}
               onChange={(e) => setDetectionResolution(e.target.value)}
+              title="Detection resolution"
             >
               <option value="1024">1024px</option>
               <option value="1536">1536px</option>
               <option value="2048">2048px</option>
               <option value="2560">2560px</option>
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
 
         {/* Text Detector */}
-        <div className="flex items-center gap-1" title="Text detector">
-          <Icon icon="carbon:search-locate" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="textDetector"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Text Detector
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:search-locate"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
+              id="textDetector"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={textDetector}
               onChange={(e) => setTextDetector(e.target.value)}
+              title="Text detector"
             >
               <option value="default">Default</option>
               <option value="ctd">CTD</option>
               <option value="paddle">Paddle</option>
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
 
         {/* Render text direction */}
-        <div
-          className="flex items-center gap-1"
-          title="Render text orientation"
-        >
-          <Icon icon="carbon:text-align-left" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="renderTextDirection"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Render Direction
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:text-align-left"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
+              id="renderTextDirection"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={renderTextDirection}
               onChange={(e) => setRenderTextDirection(e.target.value)}
+              title="Render text orientation"
             >
               <option value="auto">Auto</option>
               <option value="horizontal">Horizontal</option>
               <option value="vertical">Vertical</option>
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
 
         {/* Translator */}
-        <div className="flex items-center gap-1" title="Translator">
-          <Icon icon="carbon:operations-record" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="translator"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Translator
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:operations-record"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
+              id="translator"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={translator}
               onChange={(e) => setTranslator(e.target.value as TranslatorKey)}
+              title="Translator"
             >
               {validTranslators.map((key) => (
                 <option key={key} value={key}>
@@ -134,21 +162,28 @@ export const OptionsPanel: React.FC<Props> = ({
                 </option>
               ))}
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
 
         {/* Target Language */}
-        <div className="flex items-center gap-1" title="Target language">
-          <Icon icon="carbon:language" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="targetLanguage"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Target Language
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:language"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
+              id="targetLanguage"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={targetLanguage}
               onChange={(e) => setTargetLanguage(e.target.value)}
+              title="Target language"
             >
               {languageOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -156,89 +191,133 @@ export const OptionsPanel: React.FC<Props> = ({
                 </option>
               ))}
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
       </div>
 
-      {/* オプション（2段目） */}
-      <div className="flex flex-wrap items-end gap-4">
-        <div className="flex items-center gap-1" title="Inpainting Size">
-          <Icon icon="carbon:paint-brush" className="text-gray-600" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-4">
+        {/* Inpainting Size */}
+        <div className="flex flex-col">
+          <label
+            htmlFor="inpaintingSize"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Inpainting Size
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:paint-brush"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
+              id="inpaintingSize"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={inpaintingSize}
               onChange={(e) => setInpaintingSize(e.target.value)}
+              title="Inpainting size"
             >
               <option value="516">516px</option>
               <option value="1024">1024px</option>
               <option value="2048">2048px</option>
               <option value="2560">2560px</option>
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
 
         {/* Unclip Ratio */}
-        <div className="flex items-center gap-1" title="Unclip Ratio">
-          <Icon icon="weui:max-window-filled" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="unclipRatio"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Unclip Ratio
+          </label>
           <div className="relative">
+            <Icon
+              icon="weui:max-window-filled"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <input
+              id="unclipRatio"
               type="number"
-              className="appearance-none bg-transparent border-b border-gray-300 pl-2 pr-2 py-1 outline-none focus:border-blue-500 w-20"
               step="0.01"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-3 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={customUnclipRatio}
               onChange={(e) => setCustomUnclipRatio(Number(e.target.value))}
+              title="Unclip ratio"
             />
           </div>
         </div>
 
         {/* Box Threshold */}
-        <div className="flex items-center gap-1" title="Box Threshold">
-          <Icon icon="weui:photo-wall-outlined" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="boxThreshold"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Box Threshold
+          </label>
           <div className="relative">
+            <Icon
+              icon="weui:photo-wall-outlined"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <input
+              id="boxThreshold"
               type="number"
-              className="appearance-none bg-transparent border-b border-gray-300 pl-2 pr-2 py-1 outline-none focus:border-blue-500 w-20"
               step="0.01"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-3 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={customBoxThreshold}
               onChange={(e) => setCustomBoxThreshold(Number(e.target.value))}
+              title="Box threshold"
             />
           </div>
         </div>
 
         {/* Mask Dilation Offset */}
-        <div className="flex items-center gap-1" title="Mask Dilation Offset">
-          <Icon
-            icon="material-symbols:adjust-outline"
-            className="text-gray-600"
-          />
+        <div className="flex flex-col">
+          <label
+            htmlFor="maskDilationOffset"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Mask Dilation Offset
+          </label>
           <div className="relative">
+            <Icon
+              icon="material-symbols:adjust-outline"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <input
+              id="maskDilationOffset"
               type="number"
-              className="appearance-none bg-transparent border-b border-gray-300 pl-2 pr-2 py-1 outline-none focus:border-blue-500 w-20"
               step="1"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-3 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={maskDilationOffset}
               onChange={(e) => setMaskDilationOffset(Number(e.target.value))}
+              title="Mask dilation offset"
             />
           </div>
         </div>
 
         {/* Inpainter */}
-        <div className="flex items-center gap-1" title="Inpainter">
-          <Icon icon="carbon:paint-brush" className="text-gray-600" />
+        <div className="flex flex-col">
+          <label
+            htmlFor="inpainter"
+            className="mb-1 text-sm text-gray-700 font-medium"
+          >
+            Inpainter
+          </label>
           <div className="relative">
+            <Icon
+              icon="carbon:paint-brush"
+              className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400"
+            />
             <select
-              className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500 w-28"
+              id="inpainter"
+              className="w-full appearance-none border border-gray-300 rounded pl-8 pr-6 py-1 text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               value={inpainter}
               onChange={(e) => setInpainter(e.target.value)}
+              title="Inpainter"
             >
               <option value="default">Default</option>
               <option value="lama_large">Lama Large</option>
@@ -247,10 +326,6 @@ export const OptionsPanel: React.FC<Props> = ({
               <option value="none">None</option>
               <option value="original">Original</option>
             </select>
-            <Icon
-              icon="carbon:chevron-down"
-              className="absolute top-1 right-1 text-gray-500 pointer-events-none"
-            />
           </div>
         </div>
       </div>
