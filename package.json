@@ -17,6 +17,7 @@
     "react-router": "^7.3.0"
   },
   "devDependencies": {
+    "@iconify/react": "^5.2.0",
     "@react-router/dev": "^7.3.0",
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^20",

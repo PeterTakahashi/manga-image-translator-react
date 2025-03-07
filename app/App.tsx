@@ -1,13 +1,31 @@
 import React, { useState, useEffect, useCallback } from "react";
 import type { StatusKey, TranslatorKey } from "@/types";
 import { validTranslators } from "@/types";
+import { BASE_URI } from "@/config";
+import { getTranslatorName } from "@/utils/getTranslatorName";
+import { Icon } from "@iconify/react";
 
-function getTranslatorName(key: TranslatorKey): string {
-  if (key === "none") return "No Text";
-  return key[0].toUpperCase() + key.slice(1);
-}
-
-const BASE_URI = "http://127.0.0.1:8000/"; // API のベースパス (適宜変更)
+const languageOptions = [
+  { value: "CHS", label: "简体中文" },
+  { value: "CHT", label: "繁體中文" },
+  { value: "JPN", label: "日本語" },
+  { value: "ENG", label: "English" },
+  { value: "KOR", label: "한국어" },
+  { value: "VIN", label: "Tiếng Việt" },
+  { value: "CSY", label: "čeština" },
+  { value: "NLD", label: "Nederlands" },
+  { value: "FRA", label: "français" },
+  { value: "DEU", label: "Deutsch" },
+  { value: "HUN", label: "magyar nyelv" },
+  { value: "ITA", label: "italiano" },
+  { value: "PLK", label: "polski" },
+  { value: "PTB", label: "português" },
+  { value: "ROM", label: "limba română" },
+  { value: "RUS", label: "русский язык" },
+  { value: "ESP", label: "español" },
+  { value: "TRK", label: "Türk dili" },
+  { value: "IND", label: "Indonesia" },
+];
 
 export const App: React.FC = () => {
   // アップロードファイル/結果格納
@@ -313,10 +331,7 @@ export const App: React.FC = () => {
         <div className="flex flex-wrap items-end gap-4">
           {/* Detection Resolution */}
           <div className="flex items-center gap-1" title="Detection resolution">
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:fit-to-screen"
-            ></i>
+            <Icon icon="carbon:fit-to-screen" className="text-gray-600" />
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
@@ -328,19 +343,16 @@ export const App: React.FC = () => {
                 <option value="2048">2048px</option>
                 <option value="2560">2560px</option>
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
 
           {/* Text Detector */}
           <div className="flex items-center gap-1" title="Text detector">
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:search-locate"
-            ></i>
+            <Icon icon="carbon:search-locate" className="text-gray-600" />
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
@@ -351,10 +363,10 @@ export const App: React.FC = () => {
                 <option value="ctd">CTD</option>
                 <option value="paddle">Paddle</option>
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
 
@@ -363,10 +375,7 @@ export const App: React.FC = () => {
             className="flex items-center gap-1"
             title="Render text orientation"
           >
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:text-align-left"
-            ></i>
+            <Icon icon="carbon:text-align-left" className="text-gray-600" />
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
@@ -377,19 +386,16 @@ export const App: React.FC = () => {
                 <option value="horizontal">Horizontal</option>
                 <option value="vertical">Vertical</option>
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
 
           {/* Translator */}
           <div className="flex items-center gap-1" title="Translator">
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:operations-record"
-            ></i>
+            <Icon icon="carbon:operations-record" className="text-gray-600" />
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
@@ -402,61 +408,41 @@ export const App: React.FC = () => {
                   </option>
                 ))}
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
 
           {/* Target Language */}
           <div className="flex items-center gap-1" title="Target language">
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:language"
-            ></i>
+            <Icon icon="carbon:language" className="text-gray-600" />
+
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
                 value={targetLanguage}
                 onChange={(e) => setTargetLanguage(e.target.value)}
               >
-                <option value="CHS">简体中文</option>
-                <option value="CHT">繁體中文</option>
-                <option value="JPN">日本語</option>
-                <option value="ENG">English</option>
-                <option value="KOR">한국어</option>
-                <option value="VIN">Tiếng Việt</option>
-                <option value="CSY">čeština</option>
-                <option value="NLD">Nederlands</option>
-                <option value="FRA">français</option>
-                <option value="DEU">Deutsch</option>
-                <option value="HUN">magyar nyelv</option>
-                <option value="ITA">italiano</option>
-                <option value="PLK">polski</option>
-                <option value="PTB">português</option>
-                <option value="ROM">limba română</option>
-                <option value="RUS">русский язык</option>
-                <option value="ESP">español</option>
-                <option value="TRK">Türk dili</option>
-                <option value="IND">Indonesia</option>
+                {languageOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
         </div>
 
         {/* オプション（2段目） */}
         <div className="flex flex-wrap items-end gap-4">
-          {/* Inpainting Size */}
           <div className="flex items-center gap-1" title="Inpainting Size">
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:paint-brush"
-            ></i>
+            <Icon icon="carbon:paint-brush" className="text-gray-600" />
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500"
@@ -468,19 +454,16 @@ export const App: React.FC = () => {
                 <option value="2048">2048px</option>
                 <option value="2560">2560px</option>
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
 
           {/* Unclip Ratio */}
           <div className="flex items-center gap-1" title="Unclip Ratio">
-            <i
-              className="iconify text-gray-600"
-              data-icon="weui:max-window-filled"
-            ></i>
+            <Icon icon="weui:max-window-filled" className="text-gray-600" />
             <div className="relative">
               <input
                 type="number"
@@ -494,10 +477,7 @@ export const App: React.FC = () => {
 
           {/* Box Threshold */}
           <div className="flex items-center gap-1" title="Box Threshold">
-            <i
-              className="iconify text-gray-600"
-              data-icon="weui:photo-wall-outlined"
-            ></i>
+            <Icon icon="weui:photo-wall-outlined" className="text-gray-600" />
             <div className="relative">
               <input
                 type="number"
@@ -511,10 +491,10 @@ export const App: React.FC = () => {
 
           {/* Mask Dilation Offset */}
           <div className="flex items-center gap-1" title="Mask Dilation Offset">
-            <i
-              className="iconify text-gray-600"
-              data-icon="material-symbols:adjust-outline"
-            ></i>
+            <Icon
+              icon="material-symbols:adjust-outline"
+              className="text-gray-600"
+            />
             <div className="relative">
               <input
                 type="number"
@@ -528,10 +508,7 @@ export const App: React.FC = () => {
 
           {/* Inpainter */}
           <div className="flex items-center gap-1" title="Inpainter">
-            <i
-              className="iconify text-gray-600"
-              data-icon="carbon:paint-brush"
-            ></i>
+            <Icon icon="carbon:paint-brush" className="text-gray-600" />
             <div className="relative">
               <select
                 className="appearance-none bg-transparent border-b border-gray-300 pl-4 pr-7 py-1 outline-none focus:border-blue-500 w-28"
@@ -545,10 +522,10 @@ export const App: React.FC = () => {
                 <option value="none">None</option>
                 <option value="original">Original</option>
               </select>
-              <i
-                className="iconify absolute top-1 right-1 text-gray-500 pointer-events-none"
-                data-icon="carbon:chevron-down"
-              ></i>
+              <Icon
+                icon="carbon:chevron-down"
+                className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+              />
             </div>
           </div>
         </div>
@@ -558,11 +535,13 @@ export const App: React.FC = () => {
           {/* 結果表示 */}
           {result ? (
             <div className="flex flex-col items-center space-y-4">
-              <img
-                className="max-w-full max-h-[50vh] rounded-md"
-                src={resultUri}
-                alt="Result"
-              />
+              {resultUri && (
+                <img
+                  className="max-w-full max-h-[50vh] rounded-md"
+                  src={resultUri}
+                  alt="Result"
+                />
+              )}
               <button
                 type="button"
                 onClick={clearForm}
@@ -587,10 +566,10 @@ export const App: React.FC = () => {
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2 text-center text-gray-700">
-                  <i
-                    className="iconify w-8 h-8 text-gray-500 animate-spin"
-                    data-icon="carbon:progress-bar-round"
-                  ></i>
+                  <Icon
+                    icon="carbon:chevron-down"
+                    className="absolute top-1 right-1 text-gray-500 pointer-events-none"
+                  />
                   <div>{statusText}</div>
                 </div>
               )}
@@ -609,10 +588,10 @@ export const App: React.FC = () => {
                 /* 選択済みファイルがある場合 */
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="text-gray-700">
-                    <span
-                      className="iconify-inline inline-block mr-2 text-xl"
-                      data-icon="carbon:image-search"
-                    ></span>
+                    <Icon
+                      icon="carbon:image-search"
+                      className="inline-block mr-2 text-xl"
+                    />
                     File Preview
                   </div>
                   <img
@@ -633,10 +612,10 @@ export const App: React.FC = () => {
               ) : (
                 /* まだファイルがない場合 */
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <i
-                    className="iconify w-8 h-8 text-gray-500"
-                    data-icon="carbon:cloud-upload"
-                  ></i>
+                  <Icon
+                    icon="carbon:cloud-upload"
+                    className="w-8 h-8 text-gray-500"
+                  />
                   <div className="text-gray-600">
                     Paste an image, click to select one, or drag and drop here
                   </div>
