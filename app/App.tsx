@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import type { StatusKey, TranslatorKey } from "@/types";
-import { BASE_URI } from "@/config";
+import { BASE_URI, imageMimeTypes } from "@/config";
 import { OptionsPanel } from "@/components/OptionsPanel";
 import { UploadArea } from "@/components/UploadArea";
 import { fetchStatusText } from "@/utils/fetchStatusText";
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
   const resultUri = result ? URL.createObjectURL(result) : null;
 
   // エラー状態か判定
-  const error = !!status?.startsWith("error");
+  const error = useMemo(() => !!status?.startsWith("error"), [status]);
 
   // ステータス文言のリアルタイム値
   const statusText = useMemo(
@@ -55,12 +55,7 @@ export const App: React.FC = () => {
   const handleDrop = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer?.files?.[0];
-    if (
-      droppedFile &&
-      ["image/png", "image/jpeg", "image/bmp", "image/webp"].includes(
-        droppedFile.type
-      )
-    ) {
+    if (droppedFile && imageMimeTypes.includes(droppedFile.type)) {
       setFile(droppedFile);
     }
   }, []);
@@ -69,12 +64,7 @@ export const App: React.FC = () => {
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const selected = e.target.files?.[0];
-      if (
-        selected &&
-        ["image/png", "image/jpeg", "image/bmp", "image/webp"].includes(
-          selected.type
-        )
-      ) {
+      if (selected && imageMimeTypes.includes(selected.type)) {
         setFile(selected);
       }
     },
@@ -88,12 +78,7 @@ export const App: React.FC = () => {
       for (const item of items) {
         if (item.kind === "file") {
           const pastedFile = item.getAsFile();
-          if (
-            pastedFile &&
-            ["image/png", "image/jpeg", "image/bmp", "image/webp"].includes(
-              pastedFile.type
-            )
-          ) {
+          if (pastedFile && imageMimeTypes.includes(pastedFile.type)) {
             setFile(pastedFile);
             break;
           }
@@ -122,26 +107,26 @@ export const App: React.FC = () => {
       const formData = new FormData();
       formData.append("image", file);
 
-      const config = `{
-        "detector": {
-          "detector": "${textDetector}",
-          "detection_size": ${detectionResolution},
-          "box_threshold": ${customBoxThreshold},
-          "unclip_ratio": ${customUnclipRatio}
+      const config = JSON.stringify({
+        detector: {
+          detector: textDetector,
+          detection_size: detectionResolution,
+          box_threshold: customBoxThreshold,
+          unclip_ratio: customUnclipRatio,
         },
-        "render": {
-          "direction": "${renderTextDirection}"
+        render: {
+          direction: renderTextDirection,
         },
-        "translator": {
-          "translator": "${translator}",
-          "target_lang": "${targetLanguage}"
+        translator: {
+          translator: translator,
+          target_lang: targetLanguage,
         },
-        "inpainter": {
-          "inpainter": "${inpainter}",
-          "inpainting_size": ${inpaintingSize}
+        inpainter: {
+          inpainter: inpainter,
+          inpainting_size: inpaintingSize,
         },
-        "mask_dilation_offset": ${maskDilationOffset}
-      }`;
+        mask_dilation_offset: maskDilationOffset,
+      });
 
       formData.append("config", config);
 
@@ -210,7 +195,6 @@ export const App: React.FC = () => {
 
         if (response.status !== 200) {
           setStatus("error-upload");
-          // 元のコードと同じく pending にしている
           setStatus("pending");
           return;
         }
@@ -246,9 +230,6 @@ export const App: React.FC = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center py-8 px-4">
-      <h1 className="text-center text-2xl font-bold text-gray-800 mb-6">
-        Manga/Webtoon Translator
-      </h1>
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-4xl space-y-6">
         <OptionsPanel
           detectionResolution={detectionResolution}

@@ -21,3 +21,10 @@ export const languageOptions = [
   { value: "TRK", label: "Türk dili" },
   { value: "IND", label: "Indonesia" },
 ];
+
+export const imageMimeTypes = [
+  "image/png",
+  "image/jpeg",
+  "image/bmp",
+  "image/webp",
+];
