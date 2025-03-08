@@ -3,6 +3,7 @@ import type { StatusKey, TranslatorKey } from "@/types";
 import { BASE_URI, imageMimeTypes } from "@/config";
 import { OptionsPanel } from "@/components/OptionsPanel";
 import { UploadArea } from "@/components/UploadArea";
+import { Header } from "@/components/Header";
 import { fetchStatusText } from "@/utils/fetchStatusText";
 
 export const App: React.FC = () => {
@@ -229,42 +230,45 @@ export const App: React.FC = () => {
   );
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center py-8 px-4">
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-4xl space-y-6">
-        <OptionsPanel
-          detectionResolution={detectionResolution}
-          textDetector={textDetector}
-          renderTextDirection={renderTextDirection}
-          translator={translator}
-          targetLanguage={targetLanguage}
-          inpaintingSize={inpaintingSize}
-          customUnclipRatio={customUnclipRatio}
-          customBoxThreshold={customBoxThreshold}
-          maskDilationOffset={maskDilationOffset}
-          inpainter={inpainter}
-          setDetectionResolution={setDetectionResolution}
-          setTextDetector={setTextDetector}
-          setRenderTextDirection={setRenderTextDirection}
-          setTranslator={setTranslator}
-          setTargetLanguage={setTargetLanguage}
-          setInpaintingSize={setInpaintingSize}
-          setCustomUnclipRatio={setCustomUnclipRatio}
-          setCustomBoxThreshold={setCustomBoxThreshold}
-          setMaskDilationOffset={setMaskDilationOffset}
-          setInpainter={setInpainter}
-        />
-        <UploadArea
-          file={file}
-          fileUri={fileUri}
-          resultUri={resultUri}
-          status={status}
-          statusText={statusText}
-          error={error}
-          handleFileChange={handleFileChange}
-          handleDrop={handleDrop}
-          handleSubmit={handleSubmit}
-          clearForm={clearForm}
-        />
+    <div>
+      <Header />
+      <div className="bg-gray-100 min-h-screen flex flex-col pt-10 items-center">
+        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-4xl space-y-6">
+          <OptionsPanel
+            detectionResolution={detectionResolution}
+            textDetector={textDetector}
+            renderTextDirection={renderTextDirection}
+            translator={translator}
+            targetLanguage={targetLanguage}
+            inpaintingSize={inpaintingSize}
+            customUnclipRatio={customUnclipRatio}
+            customBoxThreshold={customBoxThreshold}
+            maskDilationOffset={maskDilationOffset}
+            inpainter={inpainter}
+            setDetectionResolution={setDetectionResolution}
+            setTextDetector={setTextDetector}
+            setRenderTextDirection={setRenderTextDirection}
+            setTranslator={setTranslator}
+            setTargetLanguage={setTargetLanguage}
+            setInpaintingSize={setInpaintingSize}
+            setCustomUnclipRatio={setCustomUnclipRatio}
+            setCustomBoxThreshold={setCustomBoxThreshold}
+            setMaskDilationOffset={setMaskDilationOffset}
+            setInpainter={setInpainter}
+          />
+          <UploadArea
+            file={file}
+            fileUri={fileUri}
+            resultUri={resultUri}
+            status={status}
+            statusText={statusText}
+            error={error}
+            handleFileChange={handleFileChange}
+            handleDrop={handleDrop}
+            handleSubmit={handleSubmit}
+            clearForm={clearForm}
+          />
+        </div>
       </div>
     </div>
   );

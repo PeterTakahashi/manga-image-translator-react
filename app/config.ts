@@ -22,6 +22,25 @@ export const languageOptions = [
   { value: "IND", label: "Indonesia" },
 ];
 
+export const detectionResolutions = [1024, 1536, 2048, 2560];
+
+export const inpaintingSizes = [516, 1024, 2048, 2560];
+
+export const textDetectorOptions = [
+  { value: "default", label: "Default" },
+  { value: "ctd", label: "CTD" },
+  { value: "paddle", label: "Paddle" },
+];
+
+export const inpainterOptions = [
+  { value: "default", label: "Default" },
+  { value: "lama_large", label: "Lama Large" },
+  { value: "lama_mpe", label: "Lama MPE" },
+  { value: "sd", label: "SD" },
+  { value: "none", label: "None" },
+  { value: "original", label: "Original" },
+];
+
 export const imageMimeTypes = [
   "image/png",
   "image/jpeg",
